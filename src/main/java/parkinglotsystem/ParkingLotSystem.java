@@ -2,9 +2,10 @@ package parkinglotsystem;
 
 public class ParkingLotSystem {
     private final int capacity;
+    ParkingOwner parkingOwner = new ParkingOwner();
     private int currenctCapacity = 0;
-
     private Object vehicle;
+    private ParkingOwner owner;
 
     public ParkingLotSystem(int capacity) {
         this.capacity = capacity;
@@ -12,13 +13,13 @@ public class ParkingLotSystem {
 
     public void parkVehicle(Object vehicle) throws ParkingLotException {
         if (this.capacity == currenctCapacity)
-            throw new ParkingLotException("PARKING CAPACITY IS FULL", ParkingLotException.ExceptionType.PARKING_FULL);
+            owner.parkingFull();
         this.vehicle = vehicle;
         currenctCapacity++;
     }
 
-    public boolean isVehiclePark() throws ParkingLotException {
-        if (this.vehicle != null)
+    public boolean isVehiclePark(Object vehicle) throws ParkingLotException {
+        if (this.vehicle.equals(vehicle))
             return true;
         throw new ParkingLotException("VEHICLE IS NOT AVAILABLE", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
     }
@@ -29,5 +30,9 @@ public class ParkingLotSystem {
             return true;
         }
         throw new ParkingLotException("VEHICLE IS NOT AVAILABLE", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
+    }
+
+    public void registerOwner(ParkingOwner parkingOwner) {
+        this.owner = parkingOwner;
     }
 }

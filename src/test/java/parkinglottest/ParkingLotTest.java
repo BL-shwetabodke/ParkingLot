@@ -1,9 +1,11 @@
 package parkinglottest;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import parkinglotsystem.ParkingLotException;
 import parkinglotsystem.ParkingLotSystem;
+import parkinglotsystem.ParkingOwner;
 
 public class ParkingLotTest {
 
@@ -20,7 +22,7 @@ public class ParkingLotTest {
     public void givenVehicle_WhenParked_ShouldRetuenTrue() {
         try {
             parkingLotSystem.parkVehicle(vehicle);
-            boolean isParked = parkingLotSystem.isVehiclePark();
+            boolean isParked = parkingLotSystem.isVehiclePark(vehicle);
             Assert.assertTrue(isParked);
         } catch (ParkingLotException e) {
         }
@@ -51,8 +53,8 @@ public class ParkingLotTest {
     @Test
     public void givenVehicle_CheckIfVehicleisNotPresent_ShouldRetuenThrowException() {
         try {
-            parkingLotSystem.parkVehicle(null);
-            boolean isParked = parkingLotSystem.isVehiclePark();
+            parkingLotSystem.parkVehicle("");
+            boolean isParked = parkingLotSystem.isVehiclePark(vehicle);
             Assert.assertTrue(isParked);
         } catch (ParkingLotException e) {
             Assert.assertEquals("VEHICLE IS NOT AVAILABLE", e.getMessage());
@@ -60,12 +62,14 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void givenVehicle_WhenParkingLotIsFull_ShouldReturnTrue() {
+    public void givenVehicle_WhenParkingLotFull_ShouldInformToOwner() {
+        ParkingOwner parkingOwner = new ParkingOwner();
+        parkingLotSystem.registerOwner(parkingOwner);
         try {
             parkingLotSystem.parkVehicle(vehicle);
             parkingLotSystem.parkVehicle(new Object());
-        } catch (ParkingLotException e) {
-            Assert.assertEquals("PARKING CAPACITY IS FULL", e.getMessage());
-        }
+        } catch (ParkingLotException e) { }
+        boolean parkingFull = parkingOwner.isParkingFull();
+        Assert.assertTrue(parkingFull);
     }
 }
