@@ -9,9 +9,11 @@ public class ParkingLotSystem {
         return true;
     }
 
-    public boolean unParkVehicle(Object vehicle) {
-        if (this.vehicle.equals(vehicle))
+    public boolean unParkVehicle(Object vehicle) throws ParkingLotException {
+        if (this.vehicle.equals(vehicle)) {
+            this.vehicle = null;
             return true;
-        return false;
+        }
+        throw new ParkingLotException("VEHICLE IS NOT AVAILABLE", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
     }
 }
