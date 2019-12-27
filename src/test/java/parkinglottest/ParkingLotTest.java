@@ -87,4 +87,17 @@ public class ParkingLotTest {
         } catch (ParkingLotException e) {
         }
     }
+
+    @Test
+    public void givenSameVehiclesTwoTimes_WhenParked_ShouldThrowException() {
+        parkingLotSystem.setCapacity(2);
+        ParkingOwner parkingOwner = new ParkingOwner();
+        parkingLotSystem.registerOwner(parkingOwner);
+        try {
+            parkingLotSystem.parkVehicle(vehicle);
+            parkingLotSystem.parkVehicle(vehicle);
+        } catch (ParkingLotException e) {
+            Assert.assertEquals("VEHICLE ALREADY PARK", e.getMessage());
+        }
+    }
 }
