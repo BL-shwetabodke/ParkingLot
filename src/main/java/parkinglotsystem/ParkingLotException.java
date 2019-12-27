@@ -2,7 +2,7 @@ package parkinglotsystem;
 
 public class ParkingLotException extends Exception {
     public enum ExceptionType {
-        VEHICLE_NOT_FOUND
+        PARKING_FULL, VEHICLE_NOT_FOUND
     }
 
     ExceptionType type;
