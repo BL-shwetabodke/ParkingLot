@@ -5,19 +5,31 @@ import java.util.List;
 
 public class ParkingLotSystem {
     private int capacity;
-    ParkingOwner parkingOwner = new ParkingOwner();
-    List vehicles;
+    private ParkingOwner parkingOwner = new ParkingOwner();
+    private List vehicles;
+    private List<ParkingLotObserver> parkingObservers;
     private Object vehicle;
     private ParkingOwner owner;
 
     public ParkingLotSystem(int capacity) {
         this.capacity = capacity;
+        this.parkingObservers = new ArrayList<>();
         this.vehicles = new ArrayList();
+    }
+
+    public void registerParkingLotObserver(ParkingLotObserver observer) {
+        this.parkingObservers.add(observer);
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     public void parkVehicle(Object vehicle) throws ParkingLotException {
         if (this.vehicles.size() == this.capacity) {
-            owner.parkingFull();
+            for (ParkingLotObserver observer: parkingObservers) {
+                observer.parkingFull();
+            }
             throw new ParkingLotException("PARKING IS FULL", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
         }
         if (isVehiclePark(vehicle)) {
@@ -38,13 +50,5 @@ public class ParkingLotSystem {
             return true;
         }
         throw new ParkingLotException("VEHICLE IS NOT AVAILABLE", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
-    }
-
-    public void registerOwner(ParkingOwner parkingOwner) {
-        this.owner = parkingOwner;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
     }
 }

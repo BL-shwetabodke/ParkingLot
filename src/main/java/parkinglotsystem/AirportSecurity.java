@@ -1,6 +1,6 @@
 package parkinglotsystem;
 
-public class ParkingOwner implements ParkingLotObserver {
+public class AirportSecurity implements ParkingLotObserver {
     private boolean parkingCapacity;
 
     @Override

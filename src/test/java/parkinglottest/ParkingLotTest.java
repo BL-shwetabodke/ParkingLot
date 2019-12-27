@@ -3,6 +3,7 @@ package parkinglottest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import parkinglotsystem.AirportSecurity;
 import parkinglotsystem.ParkingLotException;
 import parkinglotsystem.ParkingLotSystem;
 import parkinglotsystem.ParkingOwner;
@@ -64,7 +65,7 @@ public class ParkingLotTest {
     @Test
     public void givenVehicle_WhenParkingLotFull_ShouldInformToOwner() {
         ParkingOwner parkingOwner = new ParkingOwner();
-        parkingLotSystem.registerOwner(parkingOwner);
+        parkingLotSystem.registerParkingLotObserver(parkingOwner);
         try {
             parkingLotSystem.parkVehicle(vehicle);
             parkingLotSystem.parkVehicle(new Object());
@@ -92,12 +93,25 @@ public class ParkingLotTest {
     public void givenSameVehiclesTwoTimes_WhenParked_ShouldThrowException() {
         parkingLotSystem.setCapacity(2);
         ParkingOwner parkingOwner = new ParkingOwner();
-        parkingLotSystem.registerOwner(parkingOwner);
+        parkingLotSystem.registerParkingLotObserver(parkingOwner);
         try {
             parkingLotSystem.parkVehicle(vehicle);
             parkingLotSystem.parkVehicle(vehicle);
         } catch (ParkingLotException e) {
             Assert.assertEquals("VEHICLE ALREADY PARK", e.getMessage());
         }
+    }
+
+    @Test
+    public void givenVehicle_WhenParkingLotFull_ShouldInformToAirportSecurity() {
+        AirportSecurity airportSecurity = new AirportSecurity();
+        parkingLotSystem.registerParkingLotObserver(airportSecurity);
+        try {
+            parkingLotSystem.parkVehicle(vehicle);
+            parkingLotSystem.parkVehicle(new Object());
+        } catch (ParkingLotException e) {
+        }
+        boolean parkingFull = airportSecurity.isParkingFull();
+        Assert.assertTrue(parkingFull);
     }
 }
