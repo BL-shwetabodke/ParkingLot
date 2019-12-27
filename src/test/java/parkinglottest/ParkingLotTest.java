@@ -53,9 +53,9 @@ public class ParkingLotTest {
     @Test
     public void givenVehicle_CheckIfVehicleisNotPresent_ShouldRetuenThrowException() {
         try {
-            parkingLotSystem.parkVehicle("");
+            parkingLotSystem.parkVehicle(null);
             boolean isParked = parkingLotSystem.isVehiclePark(vehicle);
-            Assert.assertTrue(isParked);
+            Assert.assertFalse(isParked);
         } catch (ParkingLotException e) {
             Assert.assertEquals("VEHICLE IS NOT AVAILABLE", e.getMessage());
         }
@@ -68,8 +68,23 @@ public class ParkingLotTest {
         try {
             parkingLotSystem.parkVehicle(vehicle);
             parkingLotSystem.parkVehicle(new Object());
-        } catch (ParkingLotException e) { }
+        } catch (ParkingLotException e) {
+        }
         boolean parkingFull = parkingOwner.isParkingFull();
         Assert.assertTrue(parkingFull);
+    }
+
+    @Test
+    public void givenCapacityIs2ShouldBeAbleToPark2Vehicle() {
+        parkingLotSystem.setCapacity(2);
+        Object vehicle2 = new Object();
+        try {
+            parkingLotSystem.parkVehicle(vehicle);
+            boolean isParked1 = parkingLotSystem.isVehiclePark(vehicle);
+            parkingLotSystem.parkVehicle(vehicle2);
+            boolean isParked2 = parkingLotSystem.isVehiclePark(vehicle2);
+            Assert.assertTrue(isParked1 && isParked2);
+        } catch (ParkingLotException e) {
+        }
     }
 }
