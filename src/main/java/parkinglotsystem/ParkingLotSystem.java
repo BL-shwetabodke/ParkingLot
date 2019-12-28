@@ -27,7 +27,7 @@ public class ParkingLotSystem {
 
     public void parkVehicle(Object vehicle) throws ParkingLotException {
         if (this.vehicles.size() == this.capacity) {
-            for (ParkingLotObserver observer: parkingObservers) {
+            for (ParkingLotObserver observer : parkingObservers) {
                 observer.parkingFull();
             }
             throw new ParkingLotException("PARKING IS FULL", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
@@ -47,6 +47,9 @@ public class ParkingLotSystem {
     public boolean unParkVehicle(Object vehicle) throws ParkingLotException {
         if (this.vehicles.contains(vehicle)) {
             this.vehicles.remove(vehicle);
+            for (ParkingLotObserver observer : parkingObservers) {
+                observer.parkingAvailable();
+            }
             return true;
         }
         throw new ParkingLotException("VEHICLE IS NOT AVAILABLE", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
