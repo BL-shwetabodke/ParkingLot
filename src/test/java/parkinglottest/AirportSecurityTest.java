@@ -11,6 +11,7 @@ public class AirportSecurityTest {
     @Test
     public void givenVehicle_WhenParkingLotFull_ShouldInformToAirportSecurity() {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1);
+        parkingLotSystem.initializeParkingLot();
         AirportSecurity airportSecurity = new AirportSecurity();
         Object vehicle = new Object();
         parkingLotSystem.registerParkingLotObserver(airportSecurity);

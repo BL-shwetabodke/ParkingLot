@@ -8,7 +8,7 @@ import parkinglotsystem.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParkingLotTest {
+public class ParkingLotSystemTest {
 
     ParkingLotSystem parkingLotSystem = null;
     Object vehicle = null;
@@ -21,6 +21,7 @@ public class ParkingLotTest {
 
     @Test
     public void givenVehicle_WhenParked_ShouldRetuenTrue() {
+        parkingLotSystem.initializeParkingLot();
         try {
             parkingLotSystem.parkVehicle(vehicle);
             boolean isParked = parkingLotSystem.isVehiclePark(vehicle);
@@ -31,6 +32,7 @@ public class ParkingLotTest {
 
     @Test
     public void givenVehichle_WhenUnParked_ShouldReturnTrue() {
+        parkingLotSystem.initializeParkingLot();
         boolean isUnParked = false;
         try {
             parkingLotSystem.parkVehicle(vehicle);
@@ -42,6 +44,7 @@ public class ParkingLotTest {
 
     @Test
     public void givenVehicleParkAndWhenUnParkedAnotherVehicle_ShouldThrowException() {
+        parkingLotSystem.initializeParkingLot();
         try {
             parkingLotSystem.parkVehicle(vehicle);
             boolean isUnParked = parkingLotSystem.unParkVehicle(new Object());
@@ -52,18 +55,8 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void givenVehicle_CheckIfVehicleisNotPresent_ShouldRetuenThrowException() {
-        try {
-            parkingLotSystem.parkVehicle(null);
-            boolean isParked = parkingLotSystem.isVehiclePark(vehicle);
-            Assert.assertFalse(isParked);
-        } catch (ParkingLotException e) {
-            Assert.assertEquals("VEHICLE IS NOT AVAILABLE", e.getMessage());
-        }
-    }
-
-    @Test
     public void givenVehicle_WhenParkingLotFull_ShouldInformToOwner() {
+        parkingLotSystem.initializeParkingLot();
         ParkingOwner parkingOwner = new ParkingOwner();
         parkingLotSystem.registerParkingLotObserver(parkingOwner);
         try {
@@ -77,7 +70,8 @@ public class ParkingLotTest {
 
     @Test
     public void givenCapacityIs2ShouldBeAbleToPark2Vehicle() {
-        parkingLotSystem.setCapacity(2);
+        parkingLotSystem.setCapacity(3);
+        parkingLotSystem.initializeParkingLot();
         Object vehicle2 = new Object();
         try {
             parkingLotSystem.parkVehicle(vehicle);
@@ -86,12 +80,14 @@ public class ParkingLotTest {
             boolean isParked2 = parkingLotSystem.isVehiclePark(vehicle2);
             Assert.assertTrue(isParked1 && isParked2);
         } catch (ParkingLotException e) {
+            e.printStackTrace();
         }
     }
 
     @Test
     public void givenSameVehiclesTwoTimes_WhenParked_ShouldThrowException() {
         parkingLotSystem.setCapacity(2);
+        parkingLotSystem.initializeParkingLot();
         ParkingOwner parkingOwner = new ParkingOwner();
         parkingLotSystem.registerParkingLotObserver(parkingOwner);
         try {
@@ -119,6 +115,7 @@ public class ParkingLotTest {
     public void givenVehicle_WhenSpaceIsAvailable_ShouldInformOwner() {
         ParkingOwner parkingOwner = new ParkingOwner();
         parkingLotSystem.setCapacity(2);
+        parkingLotSystem.initializeParkingLot();
         parkingLotSystem.registerParkingLotObserver(parkingOwner);
         try {
             parkingLotSystem.parkVehicle(vehicle);
@@ -138,6 +135,7 @@ public class ParkingLotTest {
     public void givenVehicle_WhenSpaceIsAvailable_ShouldInformToAirportSecurity() {
         AirportSecurity airportSecurity = new AirportSecurity();
         parkingLotSystem.setCapacity(2);
+        parkingLotSystem.initializeParkingLot();
         parkingLotSystem.registerParkingLotObserver(airportSecurity);
         try {
             parkingLotSystem.parkVehicle(vehicle);
@@ -167,7 +165,7 @@ public class ParkingLotTest {
         expectedList.add(1);
         parkingLotSystem.setCapacity(2);
         parkingLotSystem.initializeParkingLot();
-        ArrayList emptySlotList = parkingLotSystem.getSlot();
+        ArrayList emptySlotList = parkingLotSystem.getSlotList();
         Assert.assertEquals(expectedList, emptySlotList);
     }
 
@@ -175,24 +173,35 @@ public class ParkingLotTest {
     public void givenParkingLot_WhenParkWithProvidedSlot_ShouldReturnTrue() {
         parkingLotSystem.setCapacity(10);
         parkingLotSystem.initializeParkingLot();
-        ArrayList<Integer> emptySlotList = parkingLotSystem.getSlot();
         try {
-            parkingLotSystem.parkVehicle(emptySlotList.get(0),vehicle);
+            parkingLotSystem.parkVehicle(vehicle);
             boolean vehiclePark = parkingLotSystem.isVehiclePark(vehicle);
             Assert.assertTrue(vehiclePark);
-        } catch (ParkingLotException e) { }
+        } catch (ParkingLotException e) {
+        }
     }
 
     @Test
-    public void givenParkingLot_WhenVehicleFound_ShouldVehicleSlot() {
+    public void givenParkingLot_WhenVehicleFound_ShouldReturnVehicleSlot() {
         parkingLotSystem.setCapacity(10);
         parkingLotSystem.initializeParkingLot();
-        ArrayList<Integer> emptySlotList = parkingLotSystem.getSlot();
         try {
-            parkingLotSystem.parkVehicle(emptySlotList.get(0),new Object());
-            parkingLotSystem.parkVehicle(emptySlotList.get(1),vehicle);
-            int slotNumber = parkingLotSystem.findVehicle(this.vehicle);
-            Assert.assertEquals(1,slotNumber);
+            parkingLotSystem.parkVehicle(new Object());
+            parkingLotSystem.parkVehicle(vehicle);
+            int slotNumber = parkingLotSystem.findVehicle(vehicle);
+            Assert.assertEquals(1, slotNumber);
+        } catch (ParkingLotException e) {
+        }
+    }
+
+    @Test
+    public void givenParkingLot_WhenVehicleParkedIfTimeIsSet_ShouldReturnTrue() {
+        parkingLotSystem.setCapacity(10);
+        parkingLotSystem.initializeParkingLot();
+        try {
+            parkingLotSystem.parkVehicle(vehicle);
+            boolean istimeSet = parkingLotSystem.isTimeSet(vehicle);
+            Assert.assertTrue(istimeSet);
         } catch (ParkingLotException e) {
         }
     }
