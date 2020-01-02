@@ -149,4 +149,11 @@ public class ParkingLotTest {
         boolean parkingAvailable = airportSecurity.isParkingAvailable();
         Assert.assertFalse(parkingAvailable);
     }
+
+    @Test
+    public void givenParkingLot_WhenInitialize_ShouldReturnParkingCapacity() {
+        parkingLotSystem.setCapacity(10);
+        int parkingLotCapacity = parkingLotSystem.initializeParkingLot();
+        Assert.assertEquals(10,parkingLotCapacity);
+    }
 }
