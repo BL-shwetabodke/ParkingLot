@@ -167,7 +167,19 @@ public class ParkingLotTest {
         expectedList.add(1);
         parkingLotSystem.setCapacity(2);
         parkingLotSystem.initializeParkingLot();
-        List slotList = parkingLotSystem.getSlot();
-        Assert.assertEquals(expectedList, slotList);
+        ArrayList emptySlotList = parkingLotSystem.getSlot();
+        Assert.assertEquals(expectedList, emptySlotList);
+    }
+
+    @Test
+    public void givenParkingLot_WhenParkWithProvidedSlot_ShouldReturnTrue() {
+        parkingLotSystem.setCapacity(10);
+        parkingLotSystem.initializeParkingLot();
+        ArrayList<Integer> emptySlotList = parkingLotSystem.getSlot();
+        try {
+            parkingLotSystem.parkVehicle(emptySlotList.get(0),vehicle);
+            boolean vehiclePark = parkingLotSystem.isVehiclePark(vehicle);
+            Assert.assertTrue(vehiclePark);
+        } catch (ParkingLotException e) { }
     }
 }

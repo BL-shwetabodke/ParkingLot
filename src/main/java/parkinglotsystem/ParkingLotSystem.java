@@ -61,12 +61,19 @@ public class ParkingLotSystem {
         return vehicles.size();
     }
 
-    public List getSlot() {
-        List emptySlots = new ArrayList();
+    public ArrayList getSlot() {
+        ArrayList<Integer> emptySlots = new ArrayList();
         for (int slot = 0; slot < this.capacity; slot++) {
             if (this.vehicles.get(slot) == null)
                 emptySlots.add(slot);
         }
         return emptySlots;
+    }
+
+    public void parkVehicle(int slot, Object vehicle) throws ParkingLotException {
+        if (isVehiclePark(vehicle)) {
+            throw new ParkingLotException("VEHICLE ALREADY PARK", ParkingLotException.ExceptionType.PARKING_FULL);
+        }
+        this.vehicles.set(slot,vehicle);
     }
 }
