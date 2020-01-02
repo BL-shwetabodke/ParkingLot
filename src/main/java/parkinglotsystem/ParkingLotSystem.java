@@ -74,6 +74,12 @@ public class ParkingLotSystem {
         if (isVehiclePark(vehicle)) {
             throw new ParkingLotException("VEHICLE ALREADY PARK", ParkingLotException.ExceptionType.PARKING_FULL);
         }
-        this.vehicles.set(slot,vehicle);
+        this.vehicles.set(slot, vehicle);
+    }
+
+    public int findVehicle(Object vehicle) throws ParkingLotException {
+        if (this.vehicles.contains(vehicle))
+            return this.vehicles.indexOf(vehicle);
+        throw new ParkingLotException("VEHICLE IS NOT AVAILABLE", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
     }
 }
