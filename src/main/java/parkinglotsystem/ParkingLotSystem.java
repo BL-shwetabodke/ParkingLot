@@ -57,7 +57,16 @@ public class ParkingLotSystem {
     }
 
     public int initializeParkingLot() {
-        IntStream.range(0,this.capacity).forEach(slots ->vehicles.add(null));
+        IntStream.range(0, this.capacity).forEach(slots -> vehicles.add(null));
         return vehicles.size();
+    }
+
+    public List getSlot() {
+        List emptySlots = new ArrayList();
+        for (int slot = 0; slot < this.capacity; slot++) {
+            if (this.vehicles.get(slot) == null)
+                emptySlots.add(slot);
+        }
+        return emptySlots;
     }
 }
