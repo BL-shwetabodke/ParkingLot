@@ -4,20 +4,20 @@ import org.junit.Assert;
 import org.junit.Test;
 import parkinglotsystem.AirportSecurity;
 import parkinglotsystem.ParkingLotException;
-import parkinglotsystem.ParkingLotSystem;
+import parkinglotsystem.ParkingLot;
 
 public class AirportSecurityTest {
 
     @Test
     public void givenVehicle_WhenParkingLotFull_ShouldInformToAirportSecurity() {
-        ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1);
-        parkingLotSystem.initializeParkingLot();
+        ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.initializeParkingLot();
         AirportSecurity airportSecurity = new AirportSecurity();
         Object vehicle = new Object();
-        parkingLotSystem.registerParkingLotObserver(airportSecurity);
+        parkingLot.registerParkingLotObserver(airportSecurity);
         try {
-            parkingLotSystem.parkVehicle(vehicle);
-            parkingLotSystem.parkVehicle(new Object());
+            parkingLot.parkVehicle(vehicle);
+            parkingLot.parkVehicle(new Object());
         } catch (ParkingLotException e) {
         }
         boolean parkingFull = airportSecurity.isParkingFull();
@@ -26,19 +26,19 @@ public class AirportSecurityTest {
 
     @Test
     public void givenVehicle_WhenSpaceIsAvailable_ShouldInformToAirportSecurity() {
-        ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1);
+        ParkingLot parkingLot = new ParkingLot(1);
         AirportSecurity airportSecurity = new AirportSecurity();
-        parkingLotSystem.setCapacity(2);
+        parkingLot.setCapacity(2);
         Object vehicle = new Object();
-        parkingLotSystem.registerParkingLotObserver(airportSecurity);
+        parkingLot.registerParkingLotObserver(airportSecurity);
         try {
-            parkingLotSystem.parkVehicle(vehicle);
-            parkingLotSystem.parkVehicle(new Object());
-            parkingLotSystem.parkVehicle(new Object());
+            parkingLot.parkVehicle(vehicle);
+            parkingLot.parkVehicle(new Object());
+            parkingLot.parkVehicle(new Object());
         } catch (ParkingLotException e) {
         }
         try {
-            parkingLotSystem.unParkVehicle(vehicle);
+            parkingLot.unParkVehicle(vehicle);
         } catch (ParkingLotException e) {
         }
         boolean parkingAvailable = airportSecurity.isParkingAvailable();

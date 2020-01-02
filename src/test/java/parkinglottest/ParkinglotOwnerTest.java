@@ -3,20 +3,20 @@ package parkinglottest;
 import org.junit.Assert;
 import org.junit.Test;
 import parkinglotsystem.ParkingLotException;
-import parkinglotsystem.ParkingLotSystem;
+import parkinglotsystem.ParkingLot;
 import parkinglotsystem.ParkingOwner;
 
 public class ParkinglotOwnerTest {
 
     @Test
     public void givenVehicle_WhenParkingLotFull_ShouldInformToOwner() {
-        ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1);
+        ParkingLot parkingLot = new ParkingLot(1);
         Object vehicle = new Object();
         ParkingOwner parkingOwner = new ParkingOwner();
-        parkingLotSystem.registerParkingLotObserver(parkingOwner);
+        parkingLot.registerParkingLotObserver(parkingOwner);
         try {
-            parkingLotSystem.parkVehicle(vehicle);
-            parkingLotSystem.parkVehicle(new Object());
+            parkingLot.parkVehicle(vehicle);
+            parkingLot.parkVehicle(new Object());
         } catch (ParkingLotException e) {
         }
         boolean parkingFull = parkingOwner.isParkingFull();
@@ -25,19 +25,19 @@ public class ParkinglotOwnerTest {
 
     @Test
     public void givenVehicle_WhenSpaceIsAvailable_ShouldInformOwner() {
-        ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1);
+        ParkingLot parkingLot = new ParkingLot(1);
         Object vehicle = new Object();
         ParkingOwner parkingOwner = new ParkingOwner();
-        parkingLotSystem.setCapacity(2);
-        parkingLotSystem.registerParkingLotObserver(parkingOwner);
+        parkingLot.setCapacity(2);
+        parkingLot.registerParkingLotObserver(parkingOwner);
         try {
-            parkingLotSystem.parkVehicle(vehicle);
-            parkingLotSystem.parkVehicle(new Object());
-            parkingLotSystem.parkVehicle(new Object());
+            parkingLot.parkVehicle(vehicle);
+            parkingLot.parkVehicle(new Object());
+            parkingLot.parkVehicle(new Object());
         } catch (ParkingLotException e) {
         }
         try {
-            parkingLotSystem.unParkVehicle(vehicle);
+            parkingLot.unParkVehicle(vehicle);
         } catch (ParkingLotException e) {
         }
         boolean parkingAvailable = parkingOwner.isParkingAvailable();

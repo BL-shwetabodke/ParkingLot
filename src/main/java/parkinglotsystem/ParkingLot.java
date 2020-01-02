@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class ParkingLotSystem {
+public class ParkingLot {
     private int capacity;
     private List<ParkingSlot> vehicles;
     private List<ParkingLotObserver> parkingObservers;
 
-    public ParkingLotSystem(int capacity) {
+    public ParkingLot(int capacity) {
         this.capacity = capacity;
         this.parkingObservers = new ArrayList<>();
         this.vehicles = new ArrayList();
