@@ -27,8 +27,9 @@ public class AirportSecurityTest {
     @Test
     public void givenVehicle_WhenSpaceIsAvailable_ShouldInformToAirportSecurity() {
         ParkingLot parkingLot = new ParkingLot(1);
-        AirportSecurity airportSecurity = new AirportSecurity();
         parkingLot.setCapacity(2);
+        parkingLot.initializeParkingLot();
+        AirportSecurity airportSecurity = new AirportSecurity();
         Object vehicle = new Object();
         parkingLot.registerParkingLotObserver(airportSecurity);
         try {

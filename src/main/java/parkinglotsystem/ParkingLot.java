@@ -15,6 +15,9 @@ public class ParkingLot {
         this.vehicles = new ArrayList();
     }
 
+    public ParkingLot() {
+    }
+
     public void registerParkingLotObserver(ParkingLotObserver observer) {
         this.parkingObservers.add(observer);
     }

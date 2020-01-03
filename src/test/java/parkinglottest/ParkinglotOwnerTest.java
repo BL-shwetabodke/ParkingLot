@@ -26,9 +26,10 @@ public class ParkinglotOwnerTest {
     @Test
     public void givenVehicle_WhenSpaceIsAvailable_ShouldInformOwner() {
         ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.setCapacity(3);
+        parkingLot.initializeParkingLot();
         Object vehicle = new Object();
         ParkingOwner parkingOwner = new ParkingOwner();
-        parkingLot.setCapacity(2);
         parkingLot.registerParkingLotObserver(parkingOwner);
         try {
             parkingLot.parkVehicle(vehicle);
