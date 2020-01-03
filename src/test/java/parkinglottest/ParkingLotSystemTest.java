@@ -20,11 +20,19 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenParkingLotSystem_WhenAddedLots_ShouldReturnTrue() {
-        ParkingLot parkingLot2 = new ParkingLot(10);
+        ParkingLot parkingLot2 = new ParkingLot(20);
         parkingLotSystem.addLot(parkingLot1);
         parkingLotSystem.addLot(parkingLot2);
         boolean isLotAdded = parkingLotSystem.isLotAdded(parkingLot2);
         Assert.assertTrue(isLotAdded);
+    }
+
+    @Test
+    public void givenParkingLotSystem_WhenLotNotAdded_ShouldReturnFalse() {
+        ParkingLot parkingLot2 = new ParkingLot(10);
+        parkingLotSystem.addLot(parkingLot1);
+        boolean isLotAdded = parkingLotSystem.isLotAdded(parkingLot2);
+        Assert.assertFalse(isLotAdded);
     }
 
     @Test
@@ -36,6 +44,19 @@ public class ParkingLotSystemTest {
             parkingLotSystem.parkVehicle(vehicle, NormalDriveStrategy.NORMAL);
             boolean isVehiclePark = parkingLotSystem.isVehiclePark(vehicle);
             Assert.assertTrue(isVehiclePark);
+        } catch (ParkingLotException e) {
+        }
+    }
+
+    @Test
+    public void givenParkingLotSystem_WhenVehicleNotParkedOnLot_ShouldReturnFalse() {
+        parkingLotSystem.addLot(parkingLot1);
+        parkingLot1.setCapacity(1);
+        parkingLot1.initializeParkingLot();
+        try {
+            parkingLotSystem.parkVehicle(vehicle, NormalDriveStrategy.NORMAL);
+            boolean isVehiclePark = parkingLotSystem.isVehiclePark(new Object());
+            Assert.assertFalse(isVehiclePark);
         } catch (ParkingLotException e) {
         }
     }
@@ -66,6 +87,25 @@ public class ParkingLotSystemTest {
             Assert.assertTrue(isVehiclePark1 && isVehiclePark2 && isVehiclePark3 && isVehiclePark4);
         } catch (ParkingLotException e) {
         }
+    }
+
+    @Test
+    public void givenParkingLotSystem_WhenUnParkNotAvailableVehicle_ShouldThrowException() {
+        parkingLot1.setCapacity(10);
+        parkingLot1.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot1);
+        Object vehicle2 = new Object();
+        Object vehicle3 = new Object();
+        Object vehicle4 = new Object();
+        try {
+            parkingLotSystem.parkVehicle(vehicle, NormalDriveStrategy.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle2, NormalDriveStrategy.NORMAL);
+            boolean isUnParkVehicle = parkingLotSystem.unParkVehicle(vehicle3);
+            Assert.assertTrue(isUnParkVehicle);
+        } catch (ParkingLotException e) {
+            Assert.assertEquals("VEHICLE IS NOT AVAILABLE", e.getMessage());
+        }
+
     }
 
     @Test

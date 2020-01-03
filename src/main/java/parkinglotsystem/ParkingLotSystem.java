@@ -24,12 +24,14 @@ public class ParkingLotSystem {
 
     public void parkVehicle(Object vehicle, ParkingLotStrategy driverType) throws ParkingLotException {
         ParkingLot lot1 = driverType.getParkingLot(this.parkingLots);
-        lot1.parkVehicle(vehicle,driverType);
+        lot1.parkVehicle(vehicle, driverType);
     }
 
     public boolean isVehiclePark(Object vehicle) {
-        if (this.parkingLots.get(0).isVehiclePark(vehicle)) {
-            return true;
+        for (int i = 0; i <this.parkingLots.size(); i++) {
+            if (this.parkingLots.get(i).isVehiclePark(vehicle)) {
+                return true;
+            }
         }
         return false;
     }
