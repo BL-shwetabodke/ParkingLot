@@ -15,9 +15,6 @@ public class ParkingLot {
         this.vehicles = new ArrayList();
     }
 
-    public ParkingLot() {
-    }
-
     public void registerParkingLotObserver(ParkingLotObserver observer) {
         this.parkingObservers.add(observer);
     }
@@ -26,8 +23,8 @@ public class ParkingLot {
         this.capacity = capacity;
     }
 
-    public void parkVehicle(Object vehicle) throws ParkingLotException {
-        ParkingSlot parkingSlot = new ParkingSlot(vehicle);
+    public void parkVehicle(Object vehicle, ParkingLotStrategy driverType) throws ParkingLotException {
+        ParkingSlot parkingSlot = new ParkingSlot(vehicle,driverType);
         if (!this.vehicles.contains(null)) {
             for (ParkingLotObserver observer : parkingObservers) {
                 observer.parkingFull();

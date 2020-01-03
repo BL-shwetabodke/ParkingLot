@@ -2,9 +2,7 @@ package parkinglottest;
 
 import org.junit.Assert;
 import org.junit.Test;
-import parkinglotsystem.AirportSecurity;
-import parkinglotsystem.ParkingLotException;
-import parkinglotsystem.ParkingLot;
+import parkinglotsystem.*;
 
 public class AirportSecurityTest {
 
@@ -16,8 +14,8 @@ public class AirportSecurityTest {
         Object vehicle = new Object();
         parkingLot.registerParkingLotObserver(airportSecurity);
         try {
-            parkingLot.parkVehicle(vehicle);
-            parkingLot.parkVehicle(new Object());
+            parkingLot.parkVehicle(vehicle, NormalDriveStrategy.NORMAL);
+            parkingLot.parkVehicle(new Object(), NormalDriveStrategy.NORMAL);
         } catch (ParkingLotException e) {
         }
         boolean parkingFull = airportSecurity.isParkingFull();
@@ -33,9 +31,9 @@ public class AirportSecurityTest {
         Object vehicle = new Object();
         parkingLot.registerParkingLotObserver(airportSecurity);
         try {
-            parkingLot.parkVehicle(vehicle);
-            parkingLot.parkVehicle(new Object());
-            parkingLot.parkVehicle(new Object());
+            parkingLot.parkVehicle(vehicle, NormalDriveStrategy.NORMAL);
+            parkingLot.parkVehicle(new Object(), NormalDriveStrategy.NORMAL);
+            parkingLot.parkVehicle(new Object(), NormalDriveStrategy.NORMAL);
         } catch (ParkingLotException e) {
         }
         try {

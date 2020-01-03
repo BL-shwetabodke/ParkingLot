@@ -1,15 +1,20 @@
 package parkinglotsystem;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 public class ParkingSlot {
+    private  ParkingLotStrategy driverType;
     protected LocalDateTime time;
     protected Object vehicle;
 
-    public ParkingSlot(Object vehicle) {
+    public ParkingSlot(Object vehicle, ParkingLotStrategy driverType) {
         this.vehicle = vehicle;
         this.time = LocalDateTime.now();
+        this.driverType = driverType;
+    }
+
+    public ParkingSlot(Object vehicle) {
+        this.vehicle = vehicle;
     }
 
     @Override

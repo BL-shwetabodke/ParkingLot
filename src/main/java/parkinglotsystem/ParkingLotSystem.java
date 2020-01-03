@@ -1,15 +1,13 @@
 package parkinglotsystem;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class ParkingLotsSystem {
+public class ParkingLotSystem {
     private int lotCapacity;
     private List<ParkingLot> parkingLots;
 
-    public ParkingLotsSystem(int lotCapacity) {
+    public ParkingLotSystem(int lotCapacity) {
         this.lotCapacity = lotCapacity;
         this.parkingLots = new ArrayList<>();
     }
@@ -24,11 +22,9 @@ public class ParkingLotsSystem {
         return false;
     }
 
-    public void parkVehicle(Object vehicle) throws ParkingLotException {
-        List<ParkingLot> parkingLotsList = this.parkingLots;
-        Collections.sort(parkingLotsList, Comparator.comparing(list -> list.getSlotList().size(), Comparator.reverseOrder()));
-        ParkingLot lot = parkingLotsList.get(0);
-        lot.parkVehicle(vehicle);
+    public void parkVehicle(Object vehicle, ParkingLotStrategy driverType) throws ParkingLotException {
+        ParkingLot lot1 = driverType.getParkingLot(this.parkingLots);
+        lot1.parkVehicle(vehicle,driverType);
     }
 
     public boolean isVehiclePark(Object vehicle) {

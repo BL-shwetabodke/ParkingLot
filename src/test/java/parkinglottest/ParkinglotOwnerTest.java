@@ -2,9 +2,7 @@ package parkinglottest;
 
 import org.junit.Assert;
 import org.junit.Test;
-import parkinglotsystem.ParkingLotException;
-import parkinglotsystem.ParkingLot;
-import parkinglotsystem.ParkingOwner;
+import parkinglotsystem.*;
 
 public class ParkinglotOwnerTest {
 
@@ -15,8 +13,8 @@ public class ParkinglotOwnerTest {
         ParkingOwner parkingOwner = new ParkingOwner();
         parkingLot.registerParkingLotObserver(parkingOwner);
         try {
-            parkingLot.parkVehicle(vehicle);
-            parkingLot.parkVehicle(new Object());
+            parkingLot.parkVehicle(vehicle, NormalDriveStrategy.NORMAL);
+            parkingLot.parkVehicle(new Object(), NormalDriveStrategy.NORMAL);
         } catch (ParkingLotException e) {
         }
         boolean parkingFull = parkingOwner.isParkingFull();
@@ -32,9 +30,9 @@ public class ParkinglotOwnerTest {
         ParkingOwner parkingOwner = new ParkingOwner();
         parkingLot.registerParkingLotObserver(parkingOwner);
         try {
-            parkingLot.parkVehicle(vehicle);
-            parkingLot.parkVehicle(new Object());
-            parkingLot.parkVehicle(new Object());
+            parkingLot.parkVehicle(vehicle, NormalDriveStrategy.NORMAL);
+            parkingLot.parkVehicle(new Object(), NormalDriveStrategy.NORMAL);
+            parkingLot.parkVehicle(new Object(), NormalDriveStrategy.NORMAL);
         } catch (ParkingLotException e) {
         }
         try {
