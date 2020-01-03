@@ -59,7 +59,7 @@ public class ParkingLot {
                 return true;
             }
         }
-        throw new ParkingLotException("VEHICLE IS NOT AVAILABLE", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
+        return false;
     }
 
     public int initializeParkingLot() {

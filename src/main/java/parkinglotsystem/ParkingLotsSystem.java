@@ -32,9 +32,18 @@ public class ParkingLotsSystem {
     }
 
     public boolean isVehiclePark(Object vehicle) {
-        if (this.parkingLots.get(0).isVehiclePark(vehicle)){
+        if (this.parkingLots.get(0).isVehiclePark(vehicle)) {
             return true;
         }
         return false;
+    }
+
+    public boolean unParkVehicle(Object vehicle) throws ParkingLotException {
+        for (int parkingLot = 0; parkingLot < this.parkingLots.size(); parkingLot++) {
+            if (this.parkingLots.get(parkingLot).unParkVehicle(vehicle)) {
+                return true;
+            }
+        }
+        throw new ParkingLotException("VEHICLE IS NOT AVAILABLE", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
     }
 }

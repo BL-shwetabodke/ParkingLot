@@ -8,7 +8,6 @@ import parkinglotsystem.ParkingLotException;
 import parkinglotsystem.ParkingLotsSystem;
 
 public class ParkingLotSystemTest {
-
     ParkingLotsSystem parkingLotsSystem;
     ParkingLot parkingLot1;
     Object vehicle;
@@ -44,7 +43,7 @@ public class ParkingLotSystemTest {
     }
 
     @Test
-    public void givenParkingLotSystem_EvenlyParkCar_() {
+    public void givenParkingLotSystem_WhenVehicleShouldParkInEvenlyDistributedLots_ShouldReturnTrue() {
         parkingLot1.setCapacity(10);
         parkingLot1.initializeParkingLot();
         parkingLotsSystem.addLot(parkingLot1);
@@ -52,6 +51,7 @@ public class ParkingLotSystemTest {
         ParkingLot parkingLot2 = new ParkingLot(10);
         parkingLot2.setCapacity(10);
         parkingLot2.initializeParkingLot();
+
         Object vehicle2 = new Object();
         Object vehicle3 = new Object();
         Object vehicle4 = new Object();
@@ -66,6 +66,31 @@ public class ParkingLotSystemTest {
             parkingLotsSystem.parkVehicle(vehicle4);
             boolean isVehiclePark4 = parkingLotsSystem.isVehiclePark(vehicle4);
             Assert.assertTrue(isVehiclePark1 && isVehiclePark2 && isVehiclePark3 && isVehiclePark4);
+        } catch (ParkingLotException e) {
+        }
+    }
+
+    @Test
+    public void givenParkingLotSystem_WhenVehicleUnPark_ShouldReturnTrue() {
+        parkingLot1.setCapacity(10);
+        parkingLot1.initializeParkingLot();
+        parkingLotsSystem.addLot(parkingLot1);
+
+        ParkingLot parkingLot2 = new ParkingLot(10);
+        parkingLot2.setCapacity(10);
+        parkingLot2.initializeParkingLot();
+
+        Object vehicle2 = new Object();
+        Object vehicle3 = new Object();
+        Object vehicle4 = new Object();
+        parkingLotsSystem.addLot(parkingLot2);
+        try {
+            parkingLotsSystem.parkVehicle(vehicle);
+            parkingLotsSystem.parkVehicle(vehicle2);
+            boolean isUnParkVehicle = parkingLotsSystem.unParkVehicle(vehicle);
+            parkingLotsSystem.parkVehicle(vehicle3);
+            parkingLotsSystem.parkVehicle(vehicle4);
+            Assert.assertTrue(isUnParkVehicle);
         } catch (ParkingLotException e) {
         }
     }
