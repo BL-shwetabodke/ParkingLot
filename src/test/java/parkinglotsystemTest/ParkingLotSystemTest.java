@@ -1,16 +1,20 @@
-package parkinglottest;
+package parkinglotsystemTest;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import parkinglotsystem.*;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.mockito.Mockito.*;
 
 public class ParkingLotSystemTest {
     ParkingLotSystem parkingLotSystem;
     ParkingLot parkingLot1;
-    Object vehicle;
     private ParkingLot mockedLot;
 
     @Before
@@ -18,7 +22,6 @@ public class ParkingLotSystemTest {
     public void setUp() throws Exception {
         parkingLotSystem = new ParkingLotSystem(1);
         parkingLot1 = new ParkingLot(10);
-        vehicle = new Object();
         mockedLot = mock(ParkingLot.class);
     }
 
@@ -42,6 +45,7 @@ public class ParkingLotSystemTest {
     @Test
     public void givenParkingLotSystem_WhenVehicleParkedOnLot_ShouldReturnTrue() {
         parkingLotSystem.addLot(mockedLot);
+        Vehicle vehicle = new Vehicle("black");
         try {
             parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL);
             verify(mockedLot).parkVehicle(vehicle, DriverType.NORMAL);
@@ -55,7 +59,8 @@ public class ParkingLotSystemTest {
     @Test
     public void givenParkingLotSystem_WhenVehicleNotParkedOnLot_ShouldReturnFalse() {
         parkingLotSystem.addLot(mockedLot);
-        Object vehicle2 = new Object();
+        Vehicle vehicle = new Vehicle("black");
+        Vehicle vehicle2 = new Vehicle("black");
         try {
             parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL);
             verify(mockedLot).parkVehicle(vehicle, DriverType.NORMAL);
@@ -76,9 +81,11 @@ public class ParkingLotSystemTest {
         parkingLot2.setCapacity(10);
         parkingLot2.initializeParkingLot();
 
-        Object vehicle2 = new Object();
-        Object vehicle3 = new Object();
-        Object vehicle4 = new Object();
+        Vehicle vehicle = new Vehicle("black");
+        Vehicle vehicle2 = new Vehicle("black");
+        Vehicle vehicle3 = new Vehicle("white");
+        Vehicle vehicle4 = new Vehicle("blue");
+
         parkingLotSystem.addLot(parkingLot2);
         try {
             parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL);
@@ -99,9 +106,10 @@ public class ParkingLotSystemTest {
         parkingLot1.setCapacity(10);
         parkingLot1.initializeParkingLot();
         parkingLotSystem.addLot(parkingLot1);
-        Object vehicle2 = new Object();
-        Object vehicle3 = new Object();
-        Object vehicle4 = new Object();
+
+        Vehicle vehicle = new Vehicle("black");
+        Vehicle vehicle2 = new Vehicle("black");
+        Vehicle vehicle3 = new Vehicle("white");
         try {
             parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL);
             parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL);
@@ -122,11 +130,12 @@ public class ParkingLotSystemTest {
         ParkingLot parkingLot2 = new ParkingLot();
         parkingLot2.setCapacity(10);
         parkingLot2.initializeParkingLot();
-
-        Object vehicle2 = new Object();
-        Object vehicle3 = new Object();
-        Object vehicle4 = new Object();
         parkingLotSystem.addLot(parkingLot2);
+
+        Vehicle vehicle = new Vehicle("black");
+        Vehicle vehicle2 = new Vehicle("black");
+        Vehicle vehicle3 = new Vehicle("white");
+        Vehicle vehicle4 = new Vehicle("blue");
         try {
             parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL);
             parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL);
@@ -154,10 +163,11 @@ public class ParkingLotSystemTest {
         parkingLot3.initializeParkingLot();
         parkingLotSystem.addLot(parkingLot3);
 
-        Object vehicle2 = new Object();
-        Object vehicle3 = new Object();
-        Object vehicle4 = new Object();
-        Object vehicle5 = new Object();
+        Vehicle vehicle = new Vehicle("black");
+        Vehicle vehicle2 = new Vehicle("black");
+        Vehicle vehicle3 = new Vehicle("white");
+        Vehicle vehicle4 = new Vehicle("blue");
+        Vehicle vehicle5 = new Vehicle("white");
         try {
             parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL);
             parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL);
@@ -186,17 +196,16 @@ public class ParkingLotSystemTest {
         parkingLot3.initializeParkingLot();
         parkingLotSystem.addLot(parkingLot3);
 
-
-        Object vehicle2 = new Object();
-        Object vehicle3 = new Object();
-        Object vehicle4 = new Object();
-        Object vehicle5 = new Object();
-        Object vehicle6 = new Object();
+        Vehicle vehicle = new Vehicle("black");
+        Vehicle vehicle2 = new Vehicle("black");
+        Vehicle vehicle3 = new Vehicle("white");
+        Vehicle vehicle4 = new Vehicle("blue");
+        Vehicle vehicle5 = new Vehicle("white");
+        Vehicle vehicle6 = new Vehicle("green");
 
         try {
             parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL);
-
-            parkingLotSystem.parkVehicle(new Object(), DriverType.HANDICAP);
+            parkingLotSystem.parkVehicle(new Vehicle("white"), DriverType.HANDICAP);
             parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL);
             parkingLotSystem.parkVehicle(vehicle3, DriverType.NORMAL);
             parkingLotSystem.parkVehicle(vehicle4, DriverType.NORMAL);
@@ -204,6 +213,48 @@ public class ParkingLotSystemTest {
             parkingLotSystem.parkVehicle(vehicle6, VehicleType.LARGE_VEHICLE);
             boolean vehiclePark = parkingLotSystem.isVehiclePark(vehicle6);
             Assert.assertTrue(vehiclePark);
+        } catch (ParkingLotException e) {
+        }
+    }
+
+    @Test
+    public void givenParkingLotSystem_WhenParkedVehicleColorIsWhite_ShouldListParkedSlots() {
+        parkingLot1.setCapacity(10);
+        parkingLot1.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot1);
+
+        ParkingLot parkingLot2 = new ParkingLot();
+        parkingLot2.setCapacity(10);
+        parkingLot2.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot2);
+
+        ParkingLot parkingLot3 = new ParkingLot();
+        parkingLot3.setCapacity(10);
+        parkingLot3.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot3);
+
+        Vehicle vehicle1 = new Vehicle("white");
+        Vehicle vehicle2 = new Vehicle("black");
+        Vehicle vehicle3 = new Vehicle("white");
+        Vehicle vehicle4 = new Vehicle("blue");
+        Vehicle vehicle5 = new Vehicle("white");
+        Vehicle vehicle6 = new Vehicle("green");
+        Vehicle vehicle7 = new Vehicle("white");
+        Vehicle vehicle8 = new Vehicle("white");
+        try {
+            parkingLotSystem.parkVehicle(vehicle1, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle3, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle4, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle5, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle6, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle7, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle8, DriverType.NORMAL);
+            List whiteCarList = parkingLotSystem.findVehicleByField("white");
+            List  expectedResult= new ArrayList();
+            expectedResult.add(0);
+            expectedResult.add(2);
+            Assert.assertEquals(expectedResult,whiteCarList.get(0));
         } catch (ParkingLotException e) {
         }
     }

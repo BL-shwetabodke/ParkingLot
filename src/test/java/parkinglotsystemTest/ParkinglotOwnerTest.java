@@ -1,4 +1,4 @@
-package parkinglottest;
+package parkinglotsystemTest;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,12 +9,12 @@ public class ParkinglotOwnerTest {
     @Test
     public void givenVehicle_WhenParkingLotFull_ShouldInformToOwner() {
         ParkingLot parkingLot = new ParkingLot(1);
-        Object vehicle = new Object();
+        Vehicle vehicle = new Vehicle("black");
         ParkingOwner parkingOwner = new ParkingOwner();
         parkingLot.registerParkingLotObserver(parkingOwner);
         try {
             parkingLot.parkVehicle(vehicle, DriverType.NORMAL);
-            parkingLot.parkVehicle(new Object(), DriverType.NORMAL);
+            parkingLot.parkVehicle(new Vehicle("black"), DriverType.NORMAL);
         } catch (ParkingLotException e) {
         }
         boolean parkingFull = parkingOwner.isParkingFull();
@@ -26,13 +26,13 @@ public class ParkinglotOwnerTest {
         ParkingLot parkingLot = new ParkingLot(1);
         parkingLot.setCapacity(3);
         parkingLot.initializeParkingLot();
-        Object vehicle = new Object();
+        Vehicle vehicle = new Vehicle("black");
         ParkingOwner parkingOwner = new ParkingOwner();
         parkingLot.registerParkingLotObserver(parkingOwner);
         try {
             parkingLot.parkVehicle(vehicle, DriverType.NORMAL);
-            parkingLot.parkVehicle(new Object(), DriverType.NORMAL);
-            parkingLot.parkVehicle(new Object(), DriverType.NORMAL);
+            parkingLot.parkVehicle(new Vehicle("black"), DriverType.NORMAL);
+            parkingLot.parkVehicle(new Vehicle("black"), DriverType.NORMAL);
         } catch (ParkingLotException e) {
         }
         try {

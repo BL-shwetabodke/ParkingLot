@@ -1,4 +1,4 @@
-package parkinglottest;
+package parkinglotsystemTest;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,7 +11,7 @@ public class NormalDriverStrategyTest {
 
     @Test
     public void givenParkingLotSystem_WhenDriverTypeIsNormal_ShouldReturnNearestLotSpace() {
-        ParkingLotStrategy parkingLotStrategy = FactoryObject.asadadf(DriverType.NORMAL);
+        ParkingLotStrategy parkingLotStrategy = StrategyFactory.getStrategy(DriverType.NORMAL);
         List<ParkingLot> parkingLots1 = new ArrayList<>();
         ParkingLot parkingLot12 = new ParkingLot(1);
         parkingLot12.setCapacity(10);

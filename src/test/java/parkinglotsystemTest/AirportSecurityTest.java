@@ -1,4 +1,4 @@
-package parkinglottest;
+package parkinglotsystemTest;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,11 +11,11 @@ public class AirportSecurityTest {
         ParkingLot parkingLot = new ParkingLot(1);
         parkingLot.initializeParkingLot();
         AirportSecurity airportSecurity = new AirportSecurity();
-        Object vehicle = new Object();
+        Vehicle vehicle = new Vehicle("black");
         parkingLot.registerParkingLotObserver(airportSecurity);
         try {
             parkingLot.parkVehicle(vehicle,DriverType.NORMAL);
-            parkingLot.parkVehicle(new Object(),DriverType.NORMAL);
+            parkingLot.parkVehicle(new Vehicle("black"),DriverType.NORMAL);
         } catch (ParkingLotException e) {
         }
         boolean parkingFull = airportSecurity.isParkingFull();
@@ -28,12 +28,12 @@ public class AirportSecurityTest {
         parkingLot.setCapacity(2);
         parkingLot.initializeParkingLot();
         AirportSecurity airportSecurity = new AirportSecurity();
-        Object vehicle = new Object();
+        Vehicle vehicle = new Vehicle("black");
         parkingLot.registerParkingLotObserver(airportSecurity);
         try {
             parkingLot.parkVehicle(vehicle,DriverType.NORMAL);
-            parkingLot.parkVehicle(new Object(),DriverType.NORMAL);
-            parkingLot.parkVehicle(new Object(),DriverType.NORMAL);
+            parkingLot.parkVehicle(new Vehicle("black"),DriverType.NORMAL);
+            parkingLot.parkVehicle(new Vehicle("black"),DriverType.NORMAL);
         } catch (ParkingLotException e) {
         }
         try {
