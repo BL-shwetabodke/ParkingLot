@@ -11,7 +11,7 @@ public class HandicapDriverStrategyTest {
 
     @Test
     public void givenParkingLotSystem_WhenDriverTypeIsHandiCap_ShouldReturnNearestLotSpace() {
-        ParkingLotStrategy parkingLotStrategy = HandicapDriverStrategy.HANDICAP;
+        ParkingLotStrategy parkingLotStrategy = FactoryObject.asadadf(DriverType.HANDICAP);
         List<ParkingLot> parkingLots1 = new ArrayList<>();
         ParkingLot parkingLot12 = new ParkingLot(1);
         parkingLot12.setCapacity(10);

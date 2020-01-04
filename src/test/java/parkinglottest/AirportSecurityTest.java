@@ -14,8 +14,8 @@ public class AirportSecurityTest {
         Object vehicle = new Object();
         parkingLot.registerParkingLotObserver(airportSecurity);
         try {
-            parkingLot.parkVehicle(vehicle, NormalDriveStrategy.NORMAL);
-            parkingLot.parkVehicle(new Object(), NormalDriveStrategy.NORMAL);
+            parkingLot.parkVehicle(vehicle,DriverType.NORMAL);
+            parkingLot.parkVehicle(new Object(),DriverType.NORMAL);
         } catch (ParkingLotException e) {
         }
         boolean parkingFull = airportSecurity.isParkingFull();
@@ -31,9 +31,9 @@ public class AirportSecurityTest {
         Object vehicle = new Object();
         parkingLot.registerParkingLotObserver(airportSecurity);
         try {
-            parkingLot.parkVehicle(vehicle, NormalDriveStrategy.NORMAL);
-            parkingLot.parkVehicle(new Object(), NormalDriveStrategy.NORMAL);
-            parkingLot.parkVehicle(new Object(), NormalDriveStrategy.NORMAL);
+            parkingLot.parkVehicle(vehicle,DriverType.NORMAL);
+            parkingLot.parkVehicle(new Object(),DriverType.NORMAL);
+            parkingLot.parkVehicle(new Object(),DriverType.NORMAL);
         } catch (ParkingLotException e) {
         }
         try {

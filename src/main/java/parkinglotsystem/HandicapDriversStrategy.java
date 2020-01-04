@@ -2,9 +2,7 @@ package parkinglotsystem;
 
 import java.util.List;
 
-public enum HandicapDriverStrategy implements ParkingLotStrategy {
-    HANDICAP;
-
+public class HandicapDriversStrategy implements ParkingLotStrategy {
     @Override
     public ParkingLot getParkingLot(List<ParkingLot> parkingLots) throws ParkingLotException {
         ParkingLot parkingLot1 = parkingLots.stream()

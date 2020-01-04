@@ -22,13 +22,14 @@ public class ParkingLotSystem {
         return false;
     }
 
-    public void parkVehicle(Object vehicle, ParkingLotStrategy driverType) throws ParkingLotException {
-        ParkingLot lot1 = driverType.getParkingLot(this.parkingLots);
-        lot1.parkVehicle(vehicle, driverType);
+    public void parkVehicle(Object vehicle, Enum type) throws ParkingLotException {
+        ParkingLotStrategy parkingLotStrategy = FactoryObject.asadadf(type);
+        ParkingLot lot = parkingLotStrategy.getParkingLot(this.parkingLots);
+        lot.parkVehicle(vehicle, type);
     }
 
     public boolean isVehiclePark(Object vehicle) {
-        for (int i = 0; i <this.parkingLots.size(); i++) {
+        for (int i = 0; i < this.parkingLots.size(); i++) {
             if (this.parkingLots.get(i).isVehiclePark(vehicle)) {
                 return true;
             }

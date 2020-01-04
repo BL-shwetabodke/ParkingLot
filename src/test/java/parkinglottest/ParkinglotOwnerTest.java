@@ -13,8 +13,8 @@ public class ParkinglotOwnerTest {
         ParkingOwner parkingOwner = new ParkingOwner();
         parkingLot.registerParkingLotObserver(parkingOwner);
         try {
-            parkingLot.parkVehicle(vehicle, NormalDriveStrategy.NORMAL);
-            parkingLot.parkVehicle(new Object(), NormalDriveStrategy.NORMAL);
+            parkingLot.parkVehicle(vehicle, DriverType.NORMAL);
+            parkingLot.parkVehicle(new Object(), DriverType.NORMAL);
         } catch (ParkingLotException e) {
         }
         boolean parkingFull = parkingOwner.isParkingFull();
@@ -30,9 +30,9 @@ public class ParkinglotOwnerTest {
         ParkingOwner parkingOwner = new ParkingOwner();
         parkingLot.registerParkingLotObserver(parkingOwner);
         try {
-            parkingLot.parkVehicle(vehicle, NormalDriveStrategy.NORMAL);
-            parkingLot.parkVehicle(new Object(), NormalDriveStrategy.NORMAL);
-            parkingLot.parkVehicle(new Object(), NormalDriveStrategy.NORMAL);
+            parkingLot.parkVehicle(vehicle, DriverType.NORMAL);
+            parkingLot.parkVehicle(new Object(), DriverType.NORMAL);
+            parkingLot.parkVehicle(new Object(), DriverType.NORMAL);
         } catch (ParkingLotException e) {
         }
         try {

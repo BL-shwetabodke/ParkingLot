@@ -3,14 +3,14 @@ package parkinglotsystem;
 import java.time.LocalDateTime;
 
 public class ParkingSlot {
-    private  ParkingLotStrategy driverType;
+    private  Enum type;
     protected LocalDateTime time;
     protected Object vehicle;
 
-    public ParkingSlot(Object vehicle, ParkingLotStrategy driverType) {
+    public ParkingSlot(Object vehicle, Enum type) {
         this.vehicle = vehicle;
         this.time = LocalDateTime.now();
-        this.driverType = driverType;
+        this.type = type;
     }
 
     public ParkingSlot(Object vehicle) {
