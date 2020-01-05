@@ -24,7 +24,7 @@ public class AirportSecurityTest {
 
     @Test
     public void givenVehicle_WhenSpaceIsAvailable_ShouldInformToAirportSecurity() {
-        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot = new ParkingLot();
         parkingLot.setCapacity(2);
         parkingLot.initializeParkingLot();
         AirportSecurity airportSecurity = new AirportSecurity();
@@ -32,7 +32,6 @@ public class AirportSecurityTest {
         parkingLot.registerParkingLotObserver(airportSecurity);
         try {
             parkingLot.parkVehicle(vehicle,DriverType.NORMAL, "XYZ");
-            parkingLot.parkVehicle(new Vehicle("black"),DriverType.NORMAL, "XYZ");
             parkingLot.parkVehicle(new Vehicle("black"),DriverType.NORMAL, "XYZ");
         } catch (ParkingLotException e) {
         }

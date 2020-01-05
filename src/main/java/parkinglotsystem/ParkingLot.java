@@ -53,9 +53,12 @@ public class ParkingLot {
                 .filter(slot -> (vehicle) == slot.getVehicle())
                 .findFirst()
                 .isPresent();
+        for (ParkingLotObserver observer : parkingObservers) {
+            observer.parkingAvailable();
+        }
         if (present)
             return true;
-        throw new ParkingLotException("VEHICLE IS NOT AVAILABLE", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
+        return false;
     }
 
     public int initializeParkingLot() {
@@ -116,13 +119,14 @@ public class ParkingLot {
         return whiteVehicleList;
     }
 
-    public List<Integer> findOnField2(String color, String modelName) {
-        List<Integer> fieldList = new ArrayList<>();
+    public List<String> findOnField2(String color, String modelName) {
+        List<String> fieldList = new ArrayList<>();
+        List<String> fieldList1 = new ArrayList<>();
         fieldList = this.vehicles.stream()
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
-                .filter(parkingSlot -> parkingSlot.getVehicle().getModeleName().equals(modelName))
+                .filter(parkingSlot -> parkingSlot.getVehicle().getModelName().equals(modelName))
                 .filter(parkingSlot -> parkingSlot.getVehicle().getColor().equals(color))
-                .map(parkingSlot -> parkingSlot.getSlot())
+                .map(parkingSlot -> (parkingSlot.getAttendantName())+"  "+(parkingSlot.getSlot())+"  "+(parkingSlot.vehicle.getNumberPlate()))
                 .collect(Collectors.toList());
         return fieldList;
     }

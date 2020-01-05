@@ -28,10 +28,6 @@ public class ParkingSlot {
         return slot;
     }
 
-    public Enum getType() {
-        return type;
-    }
-
     public LocalDateTime getTime() {
         return time;
     }

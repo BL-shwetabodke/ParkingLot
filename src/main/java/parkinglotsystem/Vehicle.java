@@ -2,25 +2,25 @@ package parkinglotsystem;
 
 public class Vehicle {
     private String numberPlate;
-    private String modeleName;
+    private String modelName;
     private String color;
 
     public Vehicle(String color) {
         this.color = color;
     }
 
-    public Vehicle(String color, String modeleName, String numberPlate) {
+    public Vehicle(String color, String modelName, String numberPlate) {
         this.color=color;
         this.numberPlate=numberPlate;
-        this.modeleName=modeleName;
+        this.modelName = modelName;
     }
 
     public String getNumberPlate() {
         return numberPlate;
     }
 
-    public String getModeleName() {
-        return modeleName;
+    public String getModelName() {
+        return modelName;
     }
 
     public String getColor() {
