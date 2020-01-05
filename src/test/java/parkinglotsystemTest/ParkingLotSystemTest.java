@@ -292,10 +292,57 @@ public class ParkingLotSystemTest {
             parkingLotSystem.parkVehicle(vehicle7, DriverType.NORMAL, "XYZ");
             parkingLotSystem.parkVehicle(vehicle8, DriverType.NORMAL, "XYZ");
             List<List<String>> vehicleByNumberPlate = parkingLotSystem.findVehicleByNumberPlate("blue", "toyota");
-          //System.out.println(vehicleByNumberPlate.toString());
+            //System.out.println(vehicleByNumberPlate.toString());
             List expectedResult = new ArrayList();
             expectedResult.add("XYZ  2  MH-12-C-1234");
             Assert.assertEquals(expectedResult, vehicleByNumberPlate.get(0));
+        } catch (ParkingLotException e) {
+        }
+    }
+
+    @Test
+    public void givenParkingLotSystem_WhenParkedBMWVehicle_ShouldListParkedSlots() {
+        parkingLot1.setCapacity(10);
+        parkingLot1.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot1);
+
+        ParkingLot parkingLot2 = new ParkingLot();
+        parkingLot2.setCapacity(10);
+        parkingLot2.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot2);
+
+        ParkingLot parkingLot3 = new ParkingLot();
+        parkingLot3.setCapacity(10);
+        parkingLot3.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot3);
+
+        Vehicle vehicle1 = new Vehicle("white", "toyota", "MH-12-A-1234");
+        Vehicle vehicle2 = new Vehicle("blue", "BMW", "MH-12-A-1234");
+        Vehicle vehicle3 = new Vehicle("blue", "toyota", "MH-12-A-1234");
+        Vehicle vehicle4 = new Vehicle("white", "toyota", "MH-12-A-1234");
+        Vehicle vehicle5 = new Vehicle("white", "BMW", "MH-12-A-1234");
+        Vehicle vehicle6 = new Vehicle("blue", "toyota", "MH-12-B-1234");
+        Vehicle vehicle7 = new Vehicle("blue", "toyota", "MH-12-C-1234");
+        Vehicle vehicle8 = new Vehicle("blue", "toyota", "MH-12-D-1234");
+        try {
+            parkingLotSystem.parkVehicle(vehicle1, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle3, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle4, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle5, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle6, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle7, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle8, DriverType.NORMAL, "XYZ");
+            List<List<Integer>> vehicleByNumberPlate = parkingLotSystem.findBMWVehicle( "BMW");
+            //System.out.println(vehicleByNumberPlate.toString());
+            List expectedResult = new ArrayList();
+            expectedResult.add(0);
+            expectedResult.add(2);
+            Assert.assertEquals(expectedResult, vehicleByNumberPlate.get(0));
+
+//            List expectedResult = new ArrayList();
+//            expectedResult.add("XYZ  2  MH-12-C-1234");
+//            Assert.assertEquals(expectedResult, vehicleByNumberPlate.get(0));
         } catch (ParkingLotException e) {
         }
     }

@@ -263,4 +263,31 @@ public class ParkingLotTest {
         } catch (ParkingLotException e) {
         }
     }
+
+    @Test
+    public void givenParkingLotSystem_WhenParkedBMWVehicle_ShouldReturnLocation() {
+        parkingLot.setCapacity(20);
+        parkingLot.initializeParkingLot();
+        Vehicle vehicle1 = new Vehicle("white","toyota","MH-12-A-1234");
+        Vehicle vehicle2 = new Vehicle("blue","BMW","MH-12-A-1234");
+        Vehicle vehicle3 = new Vehicle("blue","toyota","MH-12-A-1234");
+        Vehicle vehicle4 = new Vehicle("white","toyota","MH-12-A-1234");
+        Vehicle vehicle5 = new Vehicle("white","BMW","MH-12-A-1234");
+        Vehicle vehicle6 = new Vehicle("blue","toyota","MH-12-B-1234");
+        try {
+            parkingLot.parkVehicle(vehicle1, DriverType.NORMAL, "asb");
+            parkingLot.parkVehicle(vehicle2, DriverType.NORMAL, "xyz");
+            parkingLot.parkVehicle(vehicle3, DriverType.NORMAL, "pqr");
+            parkingLot.parkVehicle(vehicle4, DriverType.NORMAL, "xyz");
+            parkingLot.parkVehicle(vehicle5, DriverType.NORMAL, "xyz");
+            parkingLot.parkVehicle(vehicle6, DriverType.NORMAL, "xyz");
+            List<Integer> vehicleByNumberPlate = parkingLot.findParkedBMWVehicleDetails( "BMW");
+            //System.out.println(vehicleByNumberPlate.toString());
+            List expectedResult = new ArrayList();
+            expectedResult.add(1);
+            expectedResult.add(4);
+            Assert.assertEquals(expectedResult, vehicleByNumberPlate);
+        } catch (ParkingLotException e) {
+        }
+    }
 }

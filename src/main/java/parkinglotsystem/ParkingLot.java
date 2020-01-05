@@ -130,4 +130,14 @@ public class ParkingLot {
                 .collect(Collectors.toList());
         return fieldList;
     }
+
+    public List<Integer> findParkedBMWVehicleDetails(String modelName) {
+        List<Integer> whiteVehicleList = new ArrayList<>();
+        whiteVehicleList = this.vehicles.stream()
+                .filter(parkingSlot -> parkingSlot.getVehicle() != null)
+                .filter(parkingSlot -> parkingSlot.getVehicle().getModelName().equals(modelName))
+                .map(parkingSlot -> parkingSlot.getSlot())
+                .collect(Collectors.toList());
+        return whiteVehicleList;
+    }
 }
