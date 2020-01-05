@@ -1,7 +1,6 @@
 package parkinglotsystem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,12 +48,6 @@ public class ParkingLotSystem {
     }
 
     public List<List<Integer>> findVehicleByField(String fieldName) {
-       /* ArrayList<ArrayList> parkingLotsList = new ArrayList<>();
-        for (ParkingLot list : this.parkingLots) {
-            //ArrayList<Integer> onField = list.findOnField(fieldName);
-            //parkingLotsList.add(onField);
-        }
-        return parkingLotsList;*/
         List<List<Integer>> listOfLotsWithWhiteVehicles = this.parkingLots.stream()
                 .map(lot -> lot.findOnField(fieldName))
                 .collect(Collectors.toList());
@@ -63,10 +56,10 @@ public class ParkingLotSystem {
 
     public List findVehicleByNumberPlate(String color, String modelName) {
         List<ArrayList> parkingLotsList = new ArrayList<>();
-        for (ParkingLot list : this.parkingLots) {
-            ArrayList<Integer> onField = list.findOnField2(color,modelName);
-            parkingLotsList.add(onField);
-        }
+//        for (ParkingLot list : this.parkingLots) {
+//            ArrayList<Integer> onField = list.findOnField2("white", color,modelName);
+//            parkingLotsList.add(onField);
+//        }
         return parkingLotsList;
     }
 }

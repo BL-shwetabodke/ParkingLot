@@ -223,7 +223,7 @@ public class ParkingLotTest {
 
     @Test
     public void givenParkingLotSystem_WhenParkedVehicleColorIsWhite_ShouldReturn1() {
-        parkingLot.setCapacity(3);
+        parkingLot.setCapacity(10);
         parkingLot.initializeParkingLot();
         Vehicle vehicle1 = new Vehicle("white");
         Vehicle vehicle2 = new Vehicle("black");
@@ -240,16 +240,22 @@ public class ParkingLotTest {
 
     @Test
     public void givenParkingLotSystem_WhenParkedVehicleColorIsBlue_ShouldReturn() {
-        parkingLot.setCapacity(5);
+        parkingLot.setCapacity(20);
         parkingLot.initializeParkingLot();
-        Vehicle vehicle1 = new Vehicle("white");
-        Vehicle vehicle3 = new Vehicle("white");
-        Vehicle vehicle2 = new Vehicle("blue");
+        Vehicle vehicle1 = new Vehicle("white","toyota","MH-12-A-1234");
+        Vehicle vehicle2 = new Vehicle("blue","BMW","MH-12-A-1234");
+        Vehicle vehicle3 = new Vehicle("blue","toyota","MH-12-A-1234");
+        Vehicle vehicle4 = new Vehicle("white","toyota","MH-12-A-1234");
+        Vehicle vehicle5 = new Vehicle("white","BMW","MH-12-A-1234");
+        Vehicle vehicle6 = new Vehicle("blue","toyota","MH-12-A-1234");
         try {
-            parkingLot.parkVehicle(vehicle1, DriverType.NORMAL, "XYZ");
-            parkingLot.parkVehicle(vehicle2, DriverType.NORMAL, "aswas");
-            parkingLot.parkVehicle(vehicle3, DriverType.NORMAL, "Xdasd");
-            List<Integer> onField = parkingLot.findOnField("white");
+            parkingLot.parkVehicle(vehicle1, DriverType.NORMAL, "asb");
+            parkingLot.parkVehicle(vehicle2, DriverType.NORMAL, "xyz");
+            parkingLot.parkVehicle(vehicle3, DriverType.NORMAL, "pqr");
+            parkingLot.parkVehicle(vehicle4, DriverType.NORMAL, "xyz");
+            parkingLot.parkVehicle(vehicle5, DriverType.NORMAL, "xyz");
+            parkingLot.parkVehicle(vehicle6, DriverType.NORMAL, "xyz");
+            List<Integer> onField = parkingLot.findOnField2("blue","toyota");
             List<Integer> whiteCarList = new ArrayList();
             whiteCarList.add(0);
             whiteCarList.add(2);
