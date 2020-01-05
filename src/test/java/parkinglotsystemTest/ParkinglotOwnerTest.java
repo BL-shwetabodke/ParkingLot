@@ -9,12 +9,13 @@ public class ParkinglotOwnerTest {
     @Test
     public void givenVehicle_WhenParkingLotFull_ShouldInformToOwner() {
         ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.initializeParkingLot();
         Vehicle vehicle = new Vehicle("black");
         ParkingOwner parkingOwner = new ParkingOwner();
         parkingLot.registerParkingLotObserver(parkingOwner);
         try {
-            parkingLot.parkVehicle(vehicle, DriverType.NORMAL);
-            parkingLot.parkVehicle(new Vehicle("black"), DriverType.NORMAL);
+            parkingLot.parkVehicle(vehicle, DriverType.NORMAL, "XYZ");
+            parkingLot.parkVehicle(new Vehicle("black"), DriverType.NORMAL, "XYZ");
         } catch (ParkingLotException e) {
         }
         boolean parkingFull = parkingOwner.isParkingFull();
@@ -30,9 +31,9 @@ public class ParkinglotOwnerTest {
         ParkingOwner parkingOwner = new ParkingOwner();
         parkingLot.registerParkingLotObserver(parkingOwner);
         try {
-            parkingLot.parkVehicle(vehicle, DriverType.NORMAL);
-            parkingLot.parkVehicle(new Vehicle("black"), DriverType.NORMAL);
-            parkingLot.parkVehicle(new Vehicle("black"), DriverType.NORMAL);
+            parkingLot.parkVehicle(vehicle, DriverType.NORMAL, "XYZ");
+            parkingLot.parkVehicle(new Vehicle("black"), DriverType.NORMAL, "XYZ");
+            parkingLot.parkVehicle(new Vehicle("black"), DriverType.NORMAL, "XYZ");
         } catch (ParkingLotException e) {
         }
         try {

@@ -5,9 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import parkinglotsystem.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -47,8 +45,8 @@ public class ParkingLotSystemTest {
         parkingLotSystem.addLot(mockedLot);
         Vehicle vehicle = new Vehicle("black");
         try {
-            parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL);
-            verify(mockedLot).parkVehicle(vehicle, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL, "XYZ");
+            verify(mockedLot).parkVehicle(vehicle, DriverType.NORMAL, "XYZ");
             when(mockedLot.isVehiclePark(vehicle)).thenReturn(true);
             boolean isVehiclePark = parkingLotSystem.isVehiclePark(vehicle);
             Assert.assertTrue(isVehiclePark);
@@ -62,8 +60,8 @@ public class ParkingLotSystemTest {
         Vehicle vehicle = new Vehicle("black");
         Vehicle vehicle2 = new Vehicle("black");
         try {
-            parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL);
-            verify(mockedLot).parkVehicle(vehicle, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL, "XYZ");
+            verify(mockedLot).parkVehicle(vehicle, DriverType.NORMAL, "XYZ");
             when(mockedLot.isVehiclePark(vehicle2)).thenReturn(false);
             boolean isVehiclePark = parkingLotSystem.isVehiclePark(vehicle2);
             Assert.assertFalse(isVehiclePark);
@@ -88,13 +86,13 @@ public class ParkingLotSystemTest {
 
         parkingLotSystem.addLot(parkingLot2);
         try {
-            parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL, "XYZ");
             boolean isVehiclePark1 = parkingLotSystem.isVehiclePark(vehicle);
-            parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL, "XYZ");
             boolean isVehiclePark2 = parkingLotSystem.isVehiclePark(vehicle2);
-            parkingLotSystem.parkVehicle(vehicle3, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle3, DriverType.NORMAL, "XYZ");
             boolean isVehiclePark3 = parkingLotSystem.isVehiclePark(vehicle3);
-            parkingLotSystem.parkVehicle(vehicle4, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle4, DriverType.NORMAL, "XYZ");
             boolean isVehiclePark4 = parkingLotSystem.isVehiclePark(vehicle4);
             Assert.assertTrue(isVehiclePark1 && isVehiclePark2 && isVehiclePark3 && isVehiclePark4);
         } catch (ParkingLotException e) {
@@ -111,8 +109,8 @@ public class ParkingLotSystemTest {
         Vehicle vehicle2 = new Vehicle("black");
         Vehicle vehicle3 = new Vehicle("white");
         try {
-            parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL, "XYZ");
             boolean isUnParkVehicle = parkingLotSystem.unParkVehicle(vehicle3);
             Assert.assertTrue(isUnParkVehicle);
         } catch (ParkingLotException e) {
@@ -137,11 +135,11 @@ public class ParkingLotSystemTest {
         Vehicle vehicle3 = new Vehicle("white");
         Vehicle vehicle4 = new Vehicle("blue");
         try {
-            parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL, "XYZ");
             boolean isUnParkVehicle = parkingLotSystem.unParkVehicle(vehicle);
-            parkingLotSystem.parkVehicle(vehicle3, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle4, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle3, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle4, DriverType.NORMAL, "XYZ");
             Assert.assertTrue(isUnParkVehicle);
         } catch (ParkingLotException e) {
         }
@@ -169,11 +167,11 @@ public class ParkingLotSystemTest {
         Vehicle vehicle4 = new Vehicle("blue");
         Vehicle vehicle5 = new Vehicle("white");
         try {
-            parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle3, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle4, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle5, DriverType.HANDICAP);
+            parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle3, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle4, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle5, DriverType.HANDICAP, "XYZ");
             boolean vehiclePark = parkingLotSystem.isVehiclePark(vehicle5);
             Assert.assertTrue(vehiclePark);
         } catch (ParkingLotException e) {
@@ -204,13 +202,13 @@ public class ParkingLotSystemTest {
         Vehicle vehicle6 = new Vehicle("green");
 
         try {
-            parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(new Vehicle("white"), DriverType.HANDICAP);
-            parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle3, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle4, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle5, DriverType.HANDICAP);
-            parkingLotSystem.parkVehicle(vehicle6, VehicleType.LARGE_VEHICLE);
+            parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(new Vehicle("white"), DriverType.HANDICAP, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle3, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle4, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle5, DriverType.HANDICAP, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle6, VehicleType.LARGE_VEHICLE, "XYZ");
             boolean vehiclePark = parkingLotSystem.isVehiclePark(vehicle6);
             Assert.assertTrue(vehiclePark);
         } catch (ParkingLotException e) {
@@ -242,19 +240,64 @@ public class ParkingLotSystemTest {
         Vehicle vehicle7 = new Vehicle("white");
         Vehicle vehicle8 = new Vehicle("white");
         try {
-            parkingLotSystem.parkVehicle(vehicle1, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle3, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle4, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle5, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle6, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle7, DriverType.NORMAL);
-            parkingLotSystem.parkVehicle(vehicle8, DriverType.NORMAL);
+            parkingLotSystem.parkVehicle(vehicle1, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle3, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle4, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle5, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle6, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle7, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle8, DriverType.NORMAL, "XYZ");
             List whiteCarList = parkingLotSystem.findVehicleByField("white");
-            List  expectedResult= new ArrayList();
+            System.out.println(whiteCarList.toString());
+            List expectedResult = new ArrayList();
             expectedResult.add(0);
             expectedResult.add(2);
-            Assert.assertEquals(expectedResult,whiteCarList.get(0));
+            Assert.assertEquals(expectedResult, whiteCarList.get(0));
+        } catch (ParkingLotException e) {
+        }
+    }
+
+    @Test
+    public void givenParkingLotSystem_WhenParkedVehicleColorIsBlue_ShouldListParkedSlots() {
+        parkingLot1.setCapacity(10);
+        parkingLot1.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot1);
+
+        ParkingLot parkingLot2 = new ParkingLot();
+        parkingLot2.setCapacity(10);
+        parkingLot2.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot2);
+
+        ParkingLot parkingLot3 = new ParkingLot();
+        parkingLot3.setCapacity(10);
+        parkingLot3.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot3);
+
+       // Vehicle vehicle10 = new Vehicle("MH-20-A-1234","white","toyota");
+        Vehicle vehicle1 = new Vehicle("white");
+        Vehicle vehicle2 = new Vehicle("black");
+        Vehicle vehicle3 = new Vehicle("white");
+        Vehicle vehicle4 = new Vehicle("blue");
+        Vehicle vehicle5 = new Vehicle("white");
+        Vehicle vehicle6 = new Vehicle("green");
+        Vehicle vehicle7 = new Vehicle("white");
+        Vehicle vehicle8 = new Vehicle("white");
+        try {
+            parkingLotSystem.parkVehicle(vehicle1, DriverType.NORMAL,"XYZ");
+            parkingLotSystem.parkVehicle(vehicle2, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle3, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle4, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle5, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle6, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle7, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle8, DriverType.NORMAL, "XYZ");
+            List whiteCarList = parkingLotSystem.findVehicleByField("white");
+            parkingLotSystem.findVehicleByNumberPlate("blue","toyota");
+            List expectedResult = new ArrayList();
+            expectedResult.add(0);
+            expectedResult.add(2);
+            Assert.assertEquals(expectedResult, whiteCarList.get(0));
         } catch (ParkingLotException e) {
         }
     }

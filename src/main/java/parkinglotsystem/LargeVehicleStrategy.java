@@ -9,7 +9,7 @@ public class LargeVehicleStrategy implements ParkingLotStrategy {
     @Override
     public ParkingLot getParkingLot(List<ParkingLot> parkingLots) throws ParkingLotException {
         List<ParkingLot> parkingLotsList = new ArrayList<>(parkingLots);
-        Collections.sort(parkingLotsList, Comparator.comparing(list -> list.getVehicleCount()));
+        Collections.sort(parkingLotsList, Comparator.comparing(list -> list.getParkVehicleCount()));
         return parkingLotsList.get(0);
     }
 }

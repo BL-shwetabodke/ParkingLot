@@ -30,18 +30,13 @@ public class ParkingLot {
         this.capacity = capacity;
     }
 
-    public void parkVehicle(Vehicle vehicle, Enum driverType) throws ParkingLotException {
-        ParkingSlot parkingSlot = new ParkingSlot(vehicle, driverType);
-        if (!this.vehicles.contains(null)) {
-            for (ParkingLotObserver observer : parkingObservers) {
-                observer.parkingFull();
-            }
-            throw new ParkingLotException("PARKING IS FULL", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
-        }
+    public void parkVehicle(Vehicle vehicle, Enum driverType, String attendantName) throws ParkingLotException {
+        ParkingSlot parkingSlot = new ParkingSlot(vehicle, driverType, attendantName);
         if (isVehiclePark(vehicle)) {
             throw new ParkingLotException("VEHICLE ALREADY PARK", ParkingLotException.ExceptionType.PARKING_FULL);
         }
         int emptySlot = getParkingSlot();
+        parkingSlot.setSlot(emptySlot);
         this.vehicles.set(emptySlot, parkingSlot);
         vehicleCount++;
     }
@@ -69,15 +64,19 @@ public class ParkingLot {
     }
 
     public int initializeParkingLot() {
-        IntStream.range(0, this.capacity).forEach(slots -> vehicles.add(null));
+        IntStream.range(0, this.capacity).forEach(slots -> this.vehicles.add(new ParkingSlot(slots)));
         return vehicles.size();
     }
 
-    public ArrayList getSlotList() {
-        ArrayList emptySlots = new ArrayList();
-        for (int slot = 0; slot < this.capacity; slot++) {
-            if (this.vehicles.get(slot) == null)
-                emptySlots.add(slot);
+    public ArrayList<Integer> getSlotList() {
+        ArrayList<Integer> emptySlots = new ArrayList();
+        IntStream.range(0, capacity)
+                .filter(slot -> this.vehicles.get(slot).getVehicle() == null)
+                .forEach(slot -> emptySlots.add(slot));
+        if (emptySlots.size() == 0) {
+            for (ParkingLotObserver observer : parkingObservers) {
+                observer.parkingFull();
+            }
         }
         return emptySlots;
     }
@@ -108,17 +107,27 @@ public class ParkingLot {
         return false;
     }
 
-    public int getVehicleCount() {
+    public int getParkVehicleCount() {
         return vehicleCount;
     }
 
-    public ArrayList<Integer> findOnField(String fieldName) {
+    public List<Integer> findOnField(String fieldName) {
+        System.out.println(this.vehicles.toString());
+        List<Integer> whiteVehicleList = new ArrayList<>();
+        whiteVehicleList = this.vehicles.stream()
+                .filter(parkingSlot -> parkingSlot.getVehicle() != null)
+                .filter(parkingSlot -> parkingSlot.getVehicle().getColor().equals(fieldName))
+                .map(parkingSlot -> parkingSlot.getSlot())
+                .collect(Collectors.toList());
+        return whiteVehicleList;
+    }
+
+    public ArrayList<Integer> findOnField2(String color, String modelName) {
         ArrayList<Integer> fieldList = new ArrayList<>();
         for (int i = 0; i < this.vehicles.size(); i++) {
-            if ((this.vehicles.get(i) != null)) {
-                if (this.vehicles.get(i).vehicle.getColor().equals(fieldName)) {
-                     fieldList.add(i);
-                }
+            if ((this.vehicles.get(i) != null) && this.vehicles.get(i).vehicle.getColor().equals(color)
+                    && this.vehicles.get(i).vehicle.getColor().equals(color)) {
+                fieldList.add(i);
             }
         }
         return fieldList;

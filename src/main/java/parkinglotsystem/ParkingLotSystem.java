@@ -1,9 +1,9 @@
 package parkinglotsystem;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ParkingLotSystem {
     private int lotCapacity;
@@ -24,10 +24,10 @@ public class ParkingLotSystem {
         return false;
     }
 
-    public void parkVehicle(Vehicle vehicle, Enum type) throws ParkingLotException {
+    public void parkVehicle(Vehicle vehicle, Enum type, String xyz) throws ParkingLotException {
         ParkingLotStrategy parkingLotStrategy = StrategyFactory.getStrategy(type);
         ParkingLot lot = parkingLotStrategy.getParkingLot(this.parkingLots);
-        lot.parkVehicle(vehicle, type);
+        lot.parkVehicle(vehicle, type, "XYZ");
     }
 
     public boolean isVehiclePark(Vehicle vehicle) {
@@ -48,10 +48,23 @@ public class ParkingLotSystem {
         throw new ParkingLotException("VEHICLE IS NOT AVAILABLE", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
     }
 
-    public List findVehicleByField(String fieldName) {
+    public List<List<Integer>> findVehicleByField(String fieldName) {
+       /* ArrayList<ArrayList> parkingLotsList = new ArrayList<>();
+        for (ParkingLot list : this.parkingLots) {
+            //ArrayList<Integer> onField = list.findOnField(fieldName);
+            //parkingLotsList.add(onField);
+        }
+        return parkingLotsList;*/
+        List<List<Integer>> listOfLotsWithWhiteVehicles = this.parkingLots.stream()
+                .map(lot -> lot.findOnField(fieldName))
+                .collect(Collectors.toList());
+        return  listOfLotsWithWhiteVehicles;
+    }
+
+    public List findVehicleByNumberPlate(String color, String modelName) {
         List<ArrayList> parkingLotsList = new ArrayList<>();
         for (ParkingLot list : this.parkingLots) {
-            ArrayList<Integer> onField = list.findOnField(fieldName);
+            ArrayList<Integer> onField = list.findOnField2(color,modelName);
             parkingLotsList.add(onField);
         }
         return parkingLotsList;
