@@ -54,12 +54,12 @@ public class ParkingLotSystem {
         return  listOfLotsWithWhiteVehicles;
     }
 
-    public List findVehicleByNumberPlate(String color, String modelName) {
-        List<ArrayList> parkingLotsList = new ArrayList<>();
-//        for (ParkingLot list : this.parkingLots) {
-//            ArrayList<Integer> onField = list.findOnField2("white", color,modelName);
-//            parkingLotsList.add(onField);
-//        }
+    public List<List<String>> findVehicleByNumberPlate(String color, String modelName) {
+        List<List<String>> parkingLotsList = new ArrayList<>();
+        for (ParkingLot list : this.parkingLots) {
+            List<String> onField = list.findParkedToyatoVehicleDetails(color,modelName);
+            parkingLotsList.add(onField);
+        }
         return parkingLotsList;
     }
 }

@@ -255,7 +255,7 @@ public class ParkingLotTest {
             parkingLot.parkVehicle(vehicle4, DriverType.NORMAL, "xyz");
             parkingLot.parkVehicle(vehicle5, DriverType.NORMAL, "xyz");
             parkingLot.parkVehicle(vehicle6, DriverType.NORMAL, "xyz");
-            List<String> onField = parkingLot.findOnField2("blue","toyota");
+            List<String> onField = parkingLot.findParkedToyatoVehicleDetails("blue","toyota");
             List<String> whiteCarList = new ArrayList();
             whiteCarList.add("pqr  2  MH-12-A-1234");
             whiteCarList.add("xyz  5  MH-12-B-1234");

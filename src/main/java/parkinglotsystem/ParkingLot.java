@@ -119,7 +119,7 @@ public class ParkingLot {
         return whiteVehicleList;
     }
 
-    public List<String> findOnField2(String color, String modelName) {
+    public List<String> findParkedToyatoVehicleDetails(String color, String modelName) {
         List<String> fieldList = new ArrayList<>();
         List<String> fieldList1 = new ArrayList<>();
         fieldList = this.vehicles.stream()
