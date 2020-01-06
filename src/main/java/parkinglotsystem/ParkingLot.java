@@ -1,5 +1,6 @@
 package parkinglotsystem;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -132,12 +133,23 @@ public class ParkingLot {
     }
 
     public List<Integer> findParkedBMWVehicleDetails(String modelName) {
-        List<Integer> whiteVehicleList = new ArrayList<>();
-        whiteVehicleList = this.vehicles.stream()
+        List<Integer> bmwVehicleList = new ArrayList<>();
+        bmwVehicleList = this.vehicles.stream()
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
                 .filter(parkingSlot -> parkingSlot.getVehicle().getModelName().equals(modelName))
                 .map(parkingSlot -> parkingSlot.getSlot())
                 .collect(Collectors.toList());
-        return whiteVehicleList;
+        return bmwVehicleList;
+    }
+
+    public List<String> getVehiclesWhichIsParkedFrom30Min() {
+        List<String> befor30MinParkVehicleList = new ArrayList<>();
+        befor30MinParkVehicleList = this.vehicles.stream()
+                .filter(parkingSlot -> parkingSlot.getVehicle() != null)
+                .filter(parkingSlot -> parkingSlot.getTime().getMinute()- LocalDateTime.now().getMinute() <=30)
+                .map(parkingSlot -> ((parkingSlot.getSlot()))+" "+(parkingSlot.getVehicle().getModelName())+" "+(parkingSlot.getVehicle().getNumberPlate()))
+                .collect(Collectors.toList());
+        return befor30MinParkVehicleList;
+
     }
 }

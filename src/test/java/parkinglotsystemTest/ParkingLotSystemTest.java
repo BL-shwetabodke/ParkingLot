@@ -339,10 +339,6 @@ public class ParkingLotSystemTest {
             expectedResult.add(0);
             expectedResult.add(2);
             Assert.assertEquals(expectedResult, vehicleByNumberPlate.get(0));
-
-//            List expectedResult = new ArrayList();
-//            expectedResult.add("XYZ  2  MH-12-C-1234");
-//            Assert.assertEquals(expectedResult, vehicleByNumberPlate.get(0));
         } catch (ParkingLotException e) {
         }
     }
